@@ -1,0 +1,77 @@
+import java.util.ArrayList;
+import java.io.*;
+
+public class Estoque {
+
+    private ArrayList<Item> itens;
+    private final String ARQUIVO_DADOS = "estoque.dat";
+
+    public Estoque() {
+        this.itens = new ArrayList<>();
+
+        carregarDados();
+    }
+
+    private void carregarDados() {
+        try {
+            File arquivo = new File(ARQUIVO_DADOS);
+            if (!arquivo.exists()) {
+                return;
+            }
+
+            FileInputStream fileIn = new FileInputStream(ARQUIVO_DADOS);
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+
+            this.itens = (ArrayList<Item>) objectIn.readObject();
+
+            objectIn.close();
+            fileIn.close();
+            System.out.println("Dados carregados com sucesso!");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Erro ao carregar dados!" + e.getMessage());
+        }
+    }
+
+    private void salvarDados() {
+        try {
+            FileOutputStream fileOut = new FileOutputStream(ARQUIVO_DADOS);
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+
+            objectOut.writeObject(itens);
+
+            objectOut.close();
+            fileOut.close();
+            System.out.println("Dados salvos com sucesso!");
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar dados!" + e.getMessage());
+        }
+    }
+
+    public void listarEstoque() {
+        for (Item item : itens) {
+            System.out.println(item);
+        }
+    }
+
+    public void cadastrarProduto(Produtos p, int quantidadeInicial) {
+
+        for (Item item : itens) {
+            if (item.getProduto().getNome().equalsIgnoreCase(p.getNome())) {
+
+                item.adicionarQuantidade(quantidadeInicial);
+                System.out.println("Produto já existia, Estoque atualizado.");
+                return;
+            }
+        }
+
+        Item novoItem = new Item(p, quantidadeInicial);
+        itens.add(novoItem);
+
+        salvarDados();
+
+        System.out.println("Produto cadastrado no estoque com sucesso!");
+
+    }
+}
+
+
