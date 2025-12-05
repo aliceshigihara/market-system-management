@@ -2,7 +2,7 @@ import java.io.Serializable;
 
 public class Item implements Serializable {
     private Produtos produto;
-    private int quantidade;
+    private static int quantidade;
 
     public Item(Produtos produto, int quantidade) {
         this.produto = produto;
@@ -21,7 +21,7 @@ public class Item implements Serializable {
         return produto;
     }
 
-    public int getQuantidade() {
+    public static int getQuantidade() {
         return quantidade;
     }
 

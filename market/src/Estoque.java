@@ -5,9 +5,11 @@ public class Estoque {
 
     private ArrayList<Item> itens;
     private final String ARQUIVO_DADOS = "estoque.dat";
+    private int quantidade;
 
     public Estoque() {
         this.itens = new ArrayList<>();
+        this.quantidade = Item.getQuantidade();
 
         carregarDados();
     }
@@ -71,6 +73,21 @@ public class Estoque {
 
         System.out.println("Produto cadastrado no estoque com sucesso!");
 
+    }
+
+    public Item buscarProduto(String buscaNome) {
+        for (Item item : itens) {
+            if (item.getProduto().getNome().equalsIgnoreCase(buscaNome)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    public void removerQuantidade(int qtd) {
+        this.quantidade -= qtd;
+
+        if (this.quantidade < 0) this.quantidade = 0;
     }
 }
 

@@ -6,8 +6,6 @@ public enum Categorias {
 
     private final Tipos tipo;
 
-    private String descricao;
-
     Categorias(Tipos tipo) {
         this.tipo = tipo;
     }

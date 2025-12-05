@@ -10,7 +10,7 @@ public class Funcionarios extends Usuarios {
         }
     }
 
-    public abstract class Vendedor extends Funcionarios {
+    public static class Vendedor extends Funcionarios {
         public Vendedor(String nome, String login, String senha) {
             super(nome, login, senha);
         }
