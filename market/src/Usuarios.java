@@ -2,44 +2,37 @@ import java.util.ArrayList;
 import java.io.Serializable;
 import java.io.*;
 
-public class Usuarios {
-    protected static String nome;
+public class Usuarios implements Serializable {
+    protected String nome;
     protected String login;
     protected String senha;
 
-    private ArrayList<Usuarios> usuarios;
-    private final String ARQUIVO_DADOS = "usuarios.dat";
+    public static ArrayList<Usuarios> usuarios = new ArrayList<>();
+    private static final String ARQUIVO_DADOS = "usuarios.dat";
 
     public Usuarios(String nome, String login, String senha) {
         this.nome = nome;
         this.login = login;
         this.senha = senha;
-        this.usuarios = new ArrayList<>();
 
-        carregarDados();
     }
 
-    private void carregarDados() {
-        try {
-            File arquivo = new File(ARQUIVO_DADOS);
-            if (!arquivo.exists()) {
-                return;
-            }
+    public static void carregarDados() {
+        File file = new File(ARQUIVO_DADOS);
+        if (!file.exists()) {
+            return;
 
-            FileInputStream fileIn = new FileInputStream(ARQUIVO_DADOS);
-            ObjectInputStream objIn = new ObjectInputStream(fileIn);
+        }
 
-            this.usuarios = (ArrayList<Usuarios>) objIn.readObject();
-
-            objIn.close();
-            fileIn.close();
-            System.out.println("Usuarios carregados com sucesso!");
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(ARQUIVO_DADOS))) {
+            usuarios = (ArrayList<Usuarios>) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Erro ao carregar os usuarios!");
+            System.out.println("Erro ao carregar dados: " + e.getMessage());
+            usuarios = new ArrayList<>();
         }
     }
 
-    private void salvarDados() {
+    public static void salvarUsuarios() {
         try {
             FileOutputStream fileOut = new FileOutputStream(ARQUIVO_DADOS);
             ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
@@ -49,6 +42,7 @@ public class Usuarios {
             objOut.close();
             fileOut.close();
             System.out.println("Usuarios salvos com sucesso!");
+
         } catch (IOException e) {
             System.out.println("Erro ao carregar os usuarios!" + e.getMessage());
         }
@@ -58,7 +52,7 @@ public class Usuarios {
         return this.login.equals(login) && this.senha.equals(senha);
     }
 
-    public static String getNome() {
+    public String getNome() {
         return nome;
     }
 
