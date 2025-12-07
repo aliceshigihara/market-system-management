@@ -22,8 +22,10 @@ public class Produtos implements Serializable {
 
     public double getPreco() { return preco; }
 
+    public int getQuantidade() { return quantidade; }
+
     @Override
     public String toString() {
-        return "Produto: " + nome + "| Preço: R$" + preco + "| Categoria: " + categoria + "| Quantidade: " + quantidade;
+        return "Produto: " + nome + "| Preço: R$" + preco + "| Categoria: " + categoria;
     }
 }

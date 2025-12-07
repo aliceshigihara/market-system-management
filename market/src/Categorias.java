@@ -1,8 +1,8 @@
 public enum Categorias {
     FRUTAS(Tipos.PERECIVEIS),
-    BEBIDAS(Tipos.PERECIVEIS),
-    LATICINIOS(Tipos.PERECIVEIS),
-    CEREAIS(Tipos.NAO_PERECIVEIS);
+    BEBIDAS(Tipos.NAO_PERECIVEIS),
+    DOCES(Tipos.NAO_PERECIVEIS),
+    LATICINIOS(Tipos.PERECIVEIS);
 
     private final Tipos tipo;
 

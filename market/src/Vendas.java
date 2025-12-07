@@ -1,7 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Vendas implements Serializable {
     private Usuarios cliente;
@@ -9,14 +8,12 @@ public class Vendas implements Serializable {
 
     private ArrayList<Item> ItensVendidos;
     private double valorTotal;
-    private LocalDateTime dataHora;
 
     public Vendas(Usuarios cliente, Usuarios vendedor, ArrayList<Item> itensVendidos, double valorTotal) {
         this.cliente = cliente;
         this.vendedor = vendedor;
         ItensVendidos = itensVendidos;
         this.valorTotal = valorTotal;
-        this.dataHora = dataHora;
     }
 
     public Usuarios getCliente() {
@@ -33,11 +30,10 @@ public class Vendas implements Serializable {
 
     @Override
     public String toString() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        String vendedorNome = (vendedor != null) ? vendedor.getNome() : "Autoatendimento";
-        return "Data: " + dataHora.format(dtf) +
+        String vendedorNome = (vendedor == null) ? "Autoatendimento" : vendedor.getNome();
+        return
                 " | Cliente: " + cliente.getNome() +
-                " | Vendedor: " + vendedor.getNome() +
+                " | Vendedor: " + vendedorNome +
                 " | Total: R$" + String.format("%.2f", valorTotal);
     }
 }

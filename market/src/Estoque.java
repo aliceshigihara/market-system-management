@@ -3,13 +3,12 @@ import java.io.*;
 
 public class Estoque {
 
-    private ArrayList<Item> itens;
-    private final String ARQUIVO_DADOS = "estoque.dat";
+    private static ArrayList<Item> itens;
+    private static final String ARQUIVO_DADOS = "estoque.dat";
     private int quantidade;
 
     public Estoque() {
         this.itens = new ArrayList<>();
-        this.quantidade = Item.getQuantidade();
 
         carregarDados();
     }
@@ -34,7 +33,7 @@ public class Estoque {
         }
     }
 
-    private void salvarDados() {
+    public static void salvarDados() {
         try {
             FileOutputStream fileOut = new FileOutputStream(ARQUIVO_DADOS);
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
@@ -55,18 +54,18 @@ public class Estoque {
         }
     }
 
-    public void cadastrarProduto(Produtos p, int quantidadeInicial) {
+    public void cadastrarProduto(Produtos p, int quantidade) {
 
         for (Item item : itens) {
             if (item.getProduto().getNome().equalsIgnoreCase(p.getNome())) {
-
-                item.adicionarQuantidade(quantidadeInicial);
+                item.adicionarQuantidade(quantidade);
                 System.out.println("Produto já existia, Estoque atualizado.");
+                salvarDados();
                 return;
             }
         }
 
-        Item novoItem = new Item(p, quantidadeInicial);
+        Item novoItem = new Item(p, quantidade);
         itens.add(novoItem);
 
         salvarDados();
@@ -84,11 +83,6 @@ public class Estoque {
         return null;
     }
 
-    public void removerQuantidade(int qtd) {
-        this.quantidade -= qtd;
-
-        if (this.quantidade < 0) this.quantidade = 0;
-    }
 }
 
 

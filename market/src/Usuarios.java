@@ -32,7 +32,7 @@ public class Usuarios implements Serializable {
         }
     }
 
-    public static void salvarUsuarios() {
+    public static void salvarDados() {
         try {
             FileOutputStream fileOut = new FileOutputStream(ARQUIVO_DADOS);
             ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
