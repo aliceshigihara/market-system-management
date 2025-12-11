@@ -36,4 +36,12 @@ public class Vendas implements Serializable {
                 " | Vendedor: " + vendedorNome +
                 " | Total: R$" + String.format("%.2f", valorTotal);
     }
+
+    @Override
+    public String getDadosRelatorio() {
+        // Aqui você define como a venda aparece no relatório oficial
+        return "DATA: " + java.time.LocalDate.now() + // Exemplo se tiver data
+                " | CLIENTE: " + cliente.getNome() +
+                " | TOTAL: R$ " + String.format("%.2f", valorTotal);
+    }
 }

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.io.Serializable;
 import java.io.*;
 
-public class Usuarios implements Serializable {
+public abstract class Usuarios implements Serializable {
     protected String nome;
     protected String login;
     protected String senha;
